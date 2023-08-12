@@ -9,6 +9,6 @@ public class NinjectRegistration
 	{
 		kernel.Load(Assembly.GetExecutingAssembly());
 
-		kernel.Bind<>
+		// kernel.Bind<>
 	}
 }
