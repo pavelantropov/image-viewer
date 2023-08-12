@@ -1,6 +1,6 @@
 namespace ImageViewer.Tests.UseCases;
 
-public class PostImageUseCaseTests
+public class UploadImageUseCaseTests
 {
 	[SetUp]
 	public void Setup()

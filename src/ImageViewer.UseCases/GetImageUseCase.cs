@@ -20,10 +20,13 @@ public class GetImageUseCase : IGetImageUseCase
 
 	public async Task<ImageDto?> Invoke(int id, CancellationToken cancellationToken = default)
 	{
-		// var queryParams = 
-
 		var image = await _repository.GetAsync<Image>(id, cancellationToken);
+		var imageDto = _mapper.Map<ImageDto>(image);
 
-		return _mapper.Map<ImageDto>(image);
+		imageDto.Content = File.Exists(image.Path)
+			? await File.ReadAllBytesAsync(image.Path, cancellationToken)
+			: throw new FileNotFoundException($"File {image.Name} not found.", image.Name);
+
+		return imageDto;
 	}
 }

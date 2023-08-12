@@ -22,6 +22,7 @@ public class GetListOfImagesUseCase : IGetListOfImagesUseCase
 	{
 		// var queryParams = 
 
+		// TODO pass filter
 		var images = await _repository.GetAllAsync<Image>(cancellationToken);
 
 		var imagesDto = new ImagesDto

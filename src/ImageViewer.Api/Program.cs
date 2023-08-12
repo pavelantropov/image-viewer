@@ -1,5 +1,5 @@
 using ImageViewer.Api.ServiceCollectionExtensions;
-using ImageViewer.UseCases.Dto;
+using ImageViewer.UseCases.ApiModels;
 using ImageViewer.UseCases.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
@@ -46,28 +46,73 @@ app.UseHttpsRedirection();
 app.MapGet(
 	"api/images",
 	async ([FromQuery] string filter, IGetListOfImagesUseCase useCase, CancellationToken cancellationToken) =>
-		await useCase.Invoke(filter, cancellationToken))
+	{
+		try
+		{
+			return Results.Ok(await useCase.Invoke(filter, cancellationToken));
+		}
+		catch (Exception ex)
+		{
+			return Results.Problem(ex.Message, statusCode: StatusCodes.Status500InternalServerError);
+		}
+	})
 	.WithName("GetListOfImages")
 	.WithOpenApi();
 
 app.MapGet(
 	"api/images/{id:int}",
-	async ([FromRoute] int id, IGetImageUseCase useCase, CancellationToken cancellationToken) => 
-		await useCase.Invoke(id, cancellationToken))
+	async ([FromRoute] int id, IGetImageUseCase useCase, CancellationToken cancellationToken) =>
+	{
+		try
+		{
+			return Results.Ok(await useCase.Invoke(id, cancellationToken));
+		}
+		catch (FileNotFoundException)
+		{
+			return Results.NotFound();
+		}
+		catch (Exception ex)
+		{
+			return Results.Problem(ex.Message, statusCode: StatusCodes.Status500InternalServerError);
+		}
+	})
 	.WithName("GetImage")
 	.WithOpenApi();
 
 app.MapPost(
 	"api/images",
-	async ([FromBody] ImageDto imageDto, IPostImageUseCase useCase, CancellationToken cancellationToken) =>
-		await useCase.Invoke(imageDto, cancellationToken))
+	async ([FromBody] UploadImageRequestModel request, IUploadImageUseCase useCase, CancellationToken cancellationToken) =>
+	{
+		try
+		{
+			return Results.Ok(await useCase.Invoke(request, cancellationToken));
+		}
+		catch (Exception ex)
+		{
+			return Results.Problem(ex.Message, statusCode: StatusCodes.Status500InternalServerError);
+		}
+	})
 	.WithName("PostImage")
 	.WithOpenApi();
 
 app.MapDelete(
 	"api/images/{id:int}",
 	async ([FromRoute] int id, IDeleteImageUseCase useCase, CancellationToken cancellationToken) =>
-		await useCase.Invoke(id, cancellationToken))
+	{
+		try
+		{
+			await useCase.Invoke(id, cancellationToken);
+			return Results.Ok();
+		}
+		catch (FileNotFoundException)
+		{
+			return Results.NotFound();
+		}
+		catch (Exception ex)
+		{
+			return Results.Problem(ex.Message, statusCode: StatusCodes.Status500InternalServerError);
+		}
+	})
 	.WithName("DeleteImage")
 	.WithOpenApi();
 

@@ -1,5 +1,6 @@
 ﻿namespace ImageViewer.Domain.Entities;
 
+// Вместо юзера использовать куки и middleware
 public class User
 {
 	public virtual int Id { get; set; }

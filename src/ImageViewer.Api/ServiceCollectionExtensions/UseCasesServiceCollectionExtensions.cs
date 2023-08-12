@@ -10,7 +10,7 @@ public static class UseCasesServiceCollectionExtensions
 		services.AddScoped<IGetImageUseCase, GetImageUseCase>();
 		services.AddScoped<IGetListOfImagesUseCase, GetListOfImagesUseCase>();
 		services.AddScoped<IDeleteImageUseCase, DeleteImageUseCase>();
-		services.AddScoped<IPostImageUseCase, PostImageUseCase>();
+		services.AddScoped<IUploadImageUseCase, UploadImageUseCase>();
 
 		return services;
 	}

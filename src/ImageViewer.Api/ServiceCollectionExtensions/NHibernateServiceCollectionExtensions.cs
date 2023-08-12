@@ -2,7 +2,6 @@
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Conventions.Helpers;
 using ImageViewer.DataAccess.Repository;
-using ImageViewer.DataAccess.UnitOfWork;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Dialect;
@@ -21,7 +20,6 @@ public static class NHibernateServiceCollectionExtensions
 		// services.Configure<NHibernateOptions>(
 		// 	configuration.GetSection("NHibernate"));
 
-		services.AddSingleton<IUnitOfWorkFactory, NHibernateUnitOfWorkFactory>();
 		services.AddScoped<INHibernateRepository, NHibernateRepository>();
 		services.AddScoped<IAsyncRepository, NHibernateRepository>();
 
