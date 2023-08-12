@@ -2,11 +2,11 @@
 
 public class Image
 {
-	public int Id { get; set; }
-	public string Name { get; set; }
-	public string Description { get; set; }
-	public string Path { get; set; }
-	public DateTime? UploadDate { get; set; }
+	public virtual int Id { get; set; }
+	public virtual string Name { get; set; }
+	public virtual string Description { get; set; }
+	public virtual string Path { get; set; }
+	public virtual DateTime? UploadDate { get; set; }
 
-	public User UploadedBy { get; set; }
+	public virtual User UploadedBy { get; set; }
 }
