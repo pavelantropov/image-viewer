@@ -18,6 +18,9 @@ public static class NHibernateServiceCollectionExtensions
 
 	public static IServiceCollection AddNHibernate(this IServiceCollection services, ConfigurationManager configuration)
 	{
+		// services.Configure<NHibernateOptions>(
+		// 	configuration.GetSection("NHibernate"));
+
 		services.AddSingleton<IUnitOfWorkFactory, NHibernateUnitOfWorkFactory>();
 		services.AddScoped<INHibernateRepository, NHibernateRepository>();
 		services.AddScoped<IAsyncRepository, NHibernateRepository>();

@@ -3,12 +3,10 @@ using ImageViewer.Domain.Entities;
 
 namespace ImageViewer.DataAccess.Mappings;
 
-public class UserMappings : ClassMap<User>
+public class UserMap : ClassMap<User>
 {
-	public UserMappings()
+	public UserMap()
 	{
-		Table("Users");
-
 		Id(x => x.Id);
 
 		Map(x => x.Name);

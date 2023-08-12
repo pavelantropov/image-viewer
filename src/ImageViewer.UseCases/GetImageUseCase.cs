@@ -18,7 +18,7 @@ public class GetImageUseCase : IGetImageUseCase
 		_mapper = mapper;
 	}
 
-	public async Task<ImageDto?> Invoke(string id, CancellationToken cancellationToken = default)
+	public async Task<ImageDto?> Invoke(int id, CancellationToken cancellationToken = default)
 	{
 		// var queryParams = 
 
