@@ -1,11 +1,11 @@
 ﻿using ImageViewer.UseCases.Dto;
 
-namespace ImageViewer.UseCases;
+namespace ImageViewer.UseCases.Interfaces;
 
-public interface IPostImageUseCase
+public interface IGetImageUseCase
 {
 	Task<ImageDto?> Invoke(
-		ImageDto imageDto,
+		string id,
 		CancellationToken cancellationToken
 	);
 }

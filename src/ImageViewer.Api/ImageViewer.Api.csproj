@@ -8,13 +8,23 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.4" />
+    <PackageReference Include="Microsoft.Web.Infrastructure" Version="2.0.0" />
+    <PackageReference Include="Ninject" Version="3.3.6" />
+    <PackageReference Include="Ninject.Web.Common" Version="3.3.2" />
+    <PackageReference Include="Ninject.Web.Common.WebHost" Version="3.3.2" />
+    <PackageReference Include="NLog" Version="5.2.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ImageViewer.DataAccess\ImageViewer.DataAccess.csproj" />
     <ProjectReference Include="..\ImageViewer.Domain\ImageViewer.Domain.csproj" />
     <ProjectReference Include="..\ImageViewer.UseCases\ImageViewer.UseCases.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="App_Start\NinjectModules\" />
   </ItemGroup>
 
 </Project>

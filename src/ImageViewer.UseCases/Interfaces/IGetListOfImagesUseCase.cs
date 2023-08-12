@@ -1,6 +1,6 @@
 ﻿using ImageViewer.UseCases.Dto;
 
-namespace ImageViewer.UseCases;
+namespace ImageViewer.UseCases.Interfaces;
 
 public interface IGetListOfImagesUseCase
 {

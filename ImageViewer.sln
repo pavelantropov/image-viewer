@@ -5,17 +5,21 @@ VisualStudioVersion = 17.6.33626.354
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageViewer.Api", "src\ImageViewer.Api\ImageViewer.Api.csproj", "{19A0B3C2-619F-4962-B9AB-AD7D4A3431FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageViewer.Domain", "src\ImageViewer.Domain\ImageViewer.Domain.csproj", "{7FAE0DD5-EA52-4F45-955B-96267B59F991}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageViewer.Domain", "src\ImageViewer.Domain\ImageViewer.Domain.csproj", "{7FAE0DD5-EA52-4F45-955B-96267B59F991}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageViewer.Infrastructure", "src\ImageViewer.Infrastructure\ImageViewer.Infrastructure.csproj", "{0BADD11A-5D5F-4BD3-9304-BE83CBAD8B10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageViewer.Infrastructure", "src\ImageViewer.Infrastructure\ImageViewer.Infrastructure.csproj", "{0BADD11A-5D5F-4BD3-9304-BE83CBAD8B10}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{7DE34590-B52E-42C9-8B0D-685C0271AAF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageViewer.Tests.Infrastructure", "src\Tests\ImageViewer.Tests.Infrastructure\ImageViewer.Tests.Infrastructure.csproj", "{0F39A49E-CEB9-4E49-981B-687F405FF7AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageViewer.Tests.Infrastructure", "src\Tests\ImageViewer.Tests.Infrastructure\ImageViewer.Tests.Infrastructure.csproj", "{0F39A49E-CEB9-4E49-981B-687F405FF7AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageViewer.UseCases", "src\ImageViewer.UseCases\ImageViewer.UseCases.csproj", "{8374F2FA-31E0-470C-9AD7-69DD0171D20F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageViewer.UseCases", "src\ImageViewer.UseCases\ImageViewer.UseCases.csproj", "{8374F2FA-31E0-470C-9AD7-69DD0171D20F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageViewer.Tests.UseCases", "src\Tests\ImageViewer.Tests.UseCases\ImageViewer.Tests.UseCases.csproj", "{5CAB7FCF-F958-4E9C-A5D5-172B77795046}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageViewer.Tests.UseCases", "src\Tests\ImageViewer.Tests.UseCases\ImageViewer.Tests.UseCases.csproj", "{5CAB7FCF-F958-4E9C-A5D5-172B77795046}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageViewer.Validation", "src\ImageViewer.Validation\ImageViewer.Validation.csproj", "{06FD7A41-2A3A-4785-88C7-090E9A70AB53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageViewer.DataAccess", "src\ImageViewer.DataAccess\ImageViewer.DataAccess.csproj", "{340C27CD-AE31-4F28-AF08-0F5562A5AB20}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +51,14 @@ Global
 		{5CAB7FCF-F958-4E9C-A5D5-172B77795046}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CAB7FCF-F958-4E9C-A5D5-172B77795046}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CAB7FCF-F958-4E9C-A5D5-172B77795046}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06FD7A41-2A3A-4785-88C7-090E9A70AB53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06FD7A41-2A3A-4785-88C7-090E9A70AB53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06FD7A41-2A3A-4785-88C7-090E9A70AB53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06FD7A41-2A3A-4785-88C7-090E9A70AB53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{340C27CD-AE31-4F28-AF08-0F5562A5AB20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{340C27CD-AE31-4F28-AF08-0F5562A5AB20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{340C27CD-AE31-4F28-AF08-0F5562A5AB20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{340C27CD-AE31-4F28-AF08-0F5562A5AB20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
