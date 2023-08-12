@@ -6,4 +6,17 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="MappingProfiles\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ImageViewer.Domain\ImageViewer.Domain.csproj" />
+    <ProjectReference Include="..\ImageViewer.UseCases\ImageViewer.UseCases.csproj" />
+  </ItemGroup>
+
 </Project>

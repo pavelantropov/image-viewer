@@ -24,6 +24,12 @@ public class GetListOfImagesUseCase : IGetListOfImagesUseCase
 
 		var images = await _repository.GetAllAsync<Image>(cancellationToken);
 
-		return _mapper.Map<ImagesDto>(images);
+		var imagesDto = new ImagesDto
+		{
+			Images = _mapper.Map<ImageDto[]>(images),
+			ImagesCount = images.Count
+		};
+
+		return imagesDto;
 	}
 }

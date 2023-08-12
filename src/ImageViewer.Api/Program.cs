@@ -1,11 +1,13 @@
-using ImageViewer.UseCases;
+using ImageViewer.Api.ServiceCollectionExtensions;
 using ImageViewer.UseCases.Dto;
+using ImageViewer.UseCases.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddNHibernate(builder.Configuration);
 builder.Services.AddUseCases();
 
