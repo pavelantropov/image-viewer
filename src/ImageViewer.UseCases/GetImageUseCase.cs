@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ImageViewer.DataAccess.Repository;
 using ImageViewer.Domain.Entities;
+using ImageViewer.Infrastructure.Helpers;
 using ImageViewer.UseCases.Dto;
 using ImageViewer.UseCases.Interfaces;
 
@@ -10,12 +11,15 @@ public class GetImageUseCase : IGetImageUseCase
 {
 	private readonly IAsyncRepository _repository;
 	private readonly IMapper _mapper;
+	private readonly IFilesHelper _filesHelper;
 
 	public GetImageUseCase(IAsyncRepository repository,
-		IMapper mapper)
+		IMapper mapper,
+		IFilesHelper filesHelper)
 	{
 		_repository = repository;
 		_mapper = mapper;
+		_filesHelper = filesHelper;
 	}
 
 	public async Task<ImageDto?> Invoke(int id, CancellationToken cancellationToken = default)
@@ -23,9 +27,7 @@ public class GetImageUseCase : IGetImageUseCase
 		var image = await _repository.GetAsync<Image>(id, cancellationToken);
 		var imageDto = _mapper.Map<ImageDto>(image);
 
-		imageDto.Content = File.Exists(image.Path)
-			? await File.ReadAllBytesAsync(image.Path, cancellationToken)
-			: throw new FileNotFoundException($"File {image.Name} not found.", image.Name);
+		imageDto.Content = await _filesHelper.ReadFileBytesAsync(image.Path, cancellationToken);
 
 		return imageDto;
 	}

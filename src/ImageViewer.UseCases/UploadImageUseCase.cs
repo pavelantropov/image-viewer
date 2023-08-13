@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using ImageViewer.DataAccess.Repository;
 using ImageViewer.Domain.Entities;
+using ImageViewer.Infrastructure;
+using ImageViewer.Infrastructure.Helpers;
 using ImageViewer.UseCases.ApiModels;
 using ImageViewer.UseCases.Dto;
 using ImageViewer.UseCases.Interfaces;
@@ -11,18 +13,21 @@ public class UploadImageUseCase : IUploadImageUseCase
 {
 	private readonly INHibernateRepository _repository;
 	private readonly IMapper _mapper;
+	private readonly IFilesHelper _filesHelper;
 
 	public UploadImageUseCase(INHibernateRepository repository,
-		IMapper mapper)
+		IMapper mapper,
+		IFilesHelper filesHelper)
 	{
 		_repository = repository;
 		_mapper = mapper;
+		_filesHelper = filesHelper;
 	}
 
 	public async Task<ImageDto> Invoke(UploadImageRequestModel request, CancellationToken cancellationToken)
 	{
 		var uniqueFileName = Guid.NewGuid() + Path.GetExtension(request.Content.FileName);
-		var imagePath = Path.Combine(@"./images/", uniqueFileName);
+		var imagePath = Path.Combine(FileConstants.ImagesRootPath, uniqueFileName);
 
 		var image = new Image
 		{
@@ -40,8 +45,7 @@ public class UploadImageUseCase : IUploadImageUseCase
 
 		try
 		{
-			await using var stream = new FileStream(imagePath, FileMode.Create);
-			await request.Content.CopyToAsync(stream, cancellationToken);
+			await _filesHelper.CreateFileAsync(imagePath, request.Content, cancellationToken);
 		}
 		catch (Exception ex)
 		{
