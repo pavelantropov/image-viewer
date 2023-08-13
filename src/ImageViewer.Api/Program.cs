@@ -1,6 +1,6 @@
 using System.Reflection;
 using ImageViewer.Api.ServiceCollectionExtensions;
-using ImageViewer.Infrastructure.MappingProfiles;
+using ImageViewer.AutoMapper.MappingProfiles;
 using ImageViewer.UseCases.ApiModels;
 using ImageViewer.UseCases.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(ImageMapProfile)));
 builder.Services.AddNHibernate(builder.Configuration);
+builder.Services.AddInfrastructure();
 builder.Services.AddUseCases();
 
 builder.Services.AddCors(options =>
@@ -61,15 +62,7 @@ app.MapGet(
 	"api/images",
 	async ([FromQuery] string filter, IGetListOfImagesUseCase useCase, CancellationToken cancellationToken) =>
 	{
-		try
-		{
-			return Results.Ok(await useCase.Invoke(filter, cancellationToken));
-		}
-		// TODO remove
-		catch (Exception ex)
-		{
-			return Results.Problem(ex.Message, statusCode: StatusCodes.Status500InternalServerError);
-		}
+		return Results.Ok(await useCase.Invoke(filter, cancellationToken));
 	})
 	.WithName("GetListOfImages")
 	.WithOpenApi();
@@ -85,10 +78,6 @@ app.MapGet(
 		catch (FileNotFoundException)
 		{
 			return Results.NotFound();
-		}
-		catch (Exception ex)
-		{
-			return Results.Problem(ex.Message, statusCode: StatusCodes.Status500InternalServerError);
 		}
 	})
 	.WithName("GetImage")
@@ -130,10 +119,6 @@ app.MapDelete(
 		catch (FileNotFoundException)
 		{
 			return Results.NotFound();
-		}
-		catch (Exception ex)
-		{
-			return Results.Problem(ex.Message, statusCode: StatusCodes.Status500InternalServerError);
 		}
 	})
 	.WithName("DeleteImage")
