@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageViewer.Tests.UseCases"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageViewer.Validation", "src\ImageViewer.Validation\ImageViewer.Validation.csproj", "{06FD7A41-2A3A-4785-88C7-090E9A70AB53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageViewer.DataAccess", "src\ImageViewer.DataAccess\ImageViewer.DataAccess.csproj", "{340C27CD-AE31-4F28-AF08-0F5562A5AB20}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageViewer.DataAccess", "src\ImageViewer.DataAccess\ImageViewer.DataAccess.csproj", "{340C27CD-AE31-4F28-AF08-0F5562A5AB20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageViewer.AutoMapper", "src\ImageViewer.Automapper\ImageViewer.AutoMapper.csproj", "{A5013981-991C-43D7-B5C0-F8C5F406D320}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,10 @@ Global
 		{340C27CD-AE31-4F28-AF08-0F5562A5AB20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{340C27CD-AE31-4F28-AF08-0F5562A5AB20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{340C27CD-AE31-4F28-AF08-0F5562A5AB20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5013981-991C-43D7-B5C0-F8C5F406D320}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5013981-991C-43D7-B5C0-F8C5F406D320}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5013981-991C-43D7-B5C0-F8C5F406D320}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5013981-991C-43D7-B5C0-F8C5F406D320}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

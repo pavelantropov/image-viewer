@@ -2,7 +2,7 @@
 using ImageViewer.Domain.Entities;
 using ImageViewer.UseCases.Dto;
 
-namespace ImageViewer.Infrastructure.MappingProfiles;
+namespace ImageViewer.AutoMapper.MappingProfiles;
 
 public class UserMapProfile : Profile
 {

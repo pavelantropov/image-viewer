@@ -1,9 +1,8 @@
-﻿using ImageViewer.Domain.Entities;
+﻿using AutoMapper;
+using ImageViewer.Domain.Entities;
 using ImageViewer.UseCases.Dto;
 
-using AutoMapper;
-
-namespace ImageViewer.Infrastructure.MappingProfiles;
+namespace ImageViewer.AutoMapper.MappingProfiles;
 
 public class ImageMapProfile : Profile
 {
