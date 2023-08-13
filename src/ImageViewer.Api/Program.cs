@@ -1,4 +1,6 @@
+using System.Reflection;
 using ImageViewer.Api.ServiceCollectionExtensions;
+using ImageViewer.Infrastructure.MappingProfiles;
 using ImageViewer.UseCases.ApiModels;
 using ImageViewer.UseCases.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -7,9 +9,20 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(ImageMapProfile)));
 builder.Services.AddNHibernate(builder.Configuration);
 builder.Services.AddUseCases();
+
+builder.Services.AddCors(options =>
+{
+	options.AddDefaultPolicy(
+		b =>
+		{
+			b.AllowAnyOrigin()
+				.AllowAnyMethod()
+				.AllowAnyHeader();
+		});
+});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -41,6 +54,7 @@ if (app.Environment.IsDevelopment())
 	});
 }
 
+app.UseCors();
 app.UseHttpsRedirection();
 
 app.MapGet(
@@ -51,6 +65,7 @@ app.MapGet(
 		{
 			return Results.Ok(await useCase.Invoke(filter, cancellationToken));
 		}
+		// TODO remove
 		catch (Exception ex)
 		{
 			return Results.Problem(ex.Message, statusCode: StatusCodes.Status500InternalServerError);
@@ -81,16 +96,24 @@ app.MapGet(
 
 app.MapPost(
 	"api/images",
-	async ([FromBody] UploadImageRequestModel request, IUploadImageUseCase useCase, CancellationToken cancellationToken) =>
+	// async ([FromBody] UploadImageRequestModel request, IUploadImageUseCase useCase, CancellationToken cancellationToken) =>
+	async (HttpContext context, IUploadImageUseCase useCase, CancellationToken cancellationToken) =>
 	{
-		try
+		var form = await context.Request.ReadFormAsync();
+
+		var request = new UploadImageRequestModel
 		{
-			return Results.Ok(await useCase.Invoke(request, cancellationToken));
-		}
-		catch (Exception ex)
+			Name = form["name"],
+			Description = form["description"],
+			Content = form.Files.FirstOrDefault(file => file.Name == "content"),
+		};
+
+		if (request.Content == null || request.Content.Length == 0)
 		{
-			return Results.Problem(ex.Message, statusCode: StatusCodes.Status500InternalServerError);
+			return Results.BadRequest();
 		}
+
+		return Results.Ok(await useCase.Invoke(request, cancellationToken));
 	})
 	.WithName("PostImage")
 	.WithOpenApi();

@@ -7,13 +7,16 @@ public class ImageMap : ClassMap<Image>
 {
 	public ImageMap()
 	{
-		Id(x => x.Id);
+		Table("Images");
+
+		Id(x => x.Id).GeneratedBy.Identity();
 
 		Map(x => x.Name);
 		Map(x => x.Description);
 		Map(x => x.Path);
-		Map(x => x.UploadDate);
+		Map(x => x.FileName);
+		Map(x => x.UploadDate).Not.Update();
 
-		References(x => x.UploadedBy);
+		References(x => x.UploadedBy).Not.Update();
 	}
 }

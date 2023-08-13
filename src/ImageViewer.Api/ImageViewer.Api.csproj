@@ -22,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ImageViewer.DataAccess\ImageViewer.DataAccess.csproj" />
     <ProjectReference Include="..\ImageViewer.Domain\ImageViewer.Domain.csproj" />
+    <ProjectReference Include="..\ImageViewer.Infrastructure\ImageViewer.Infrastructure.csproj" />
     <ProjectReference Include="..\ImageViewer.UseCases\ImageViewer.UseCases.csproj" />
   </ItemGroup>
 

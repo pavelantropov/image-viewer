@@ -1,4 +1,5 @@
-﻿using FluentNHibernate.Cfg.Db;
+﻿using System.Data;
+using FluentNHibernate.Cfg.Db;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Conventions.Helpers;
 using ImageViewer.DataAccess.Repository;
@@ -34,19 +35,6 @@ public static class NHibernateServiceCollectionExtensions
 			return session;
 		});
 
-		///
-
-		// var cfg = new Configuration();
-		// cfg.DataBaseIntegration(db =>
-		// {
-		// 	db.ConnectionString = "data source=DESKTOP-95CMJVH;initial catalog=ImageViewerDb;trusted_connection=true";
-		// 	db.Dialect<MsSql2012Dialect>();
-		// });
-		//
-		// var sessionFactory = cfg.BuildSessionFactory();
-		// services.AddSingleton(sessionFactory);
-		// services.AddScoped(_ => sessionFactory.OpenSession());
-
 		return services;
 	}
 
@@ -56,19 +44,19 @@ public static class NHibernateServiceCollectionExtensions
 
 		var dbConfig = MsSqlConfiguration
 			.MsSql2012
-			// .ConnectionString(x => x.FromConnectionStringWithKey("MSSQL"))
-			.ConnectionString("data source=DESKTOP-95CMJVH;initial catalog=ImageViewerDb;trusted_connection=true");
+			.ConnectionString("data source=DESKTOP-95CMJVH;initial catalog=ImageViewerDb;trusted_connection=true")
+			.IsolationLevel(IsolationLevel.ReadCommitted)
 			// .UseReflectionOptimizer()
-			// .AdoNetBatchSize(100);
+			.AdoNetBatchSize(100);
 
 		var configuration = new Configuration();
 
 		var cfg = Fluently.Configure(configuration)
 			.Database(dbConfig)
 			.Mappings(m => m.FluentMappings
-				.AddFromAssemblyOf<ImageMap>()
-				.Conventions.Add(
-					ConventionBuilder.Class.Always(x => x.Table(x.EntityType.Name))));
+				.AddFromAssemblyOf<ImageMap>());
+				// .Conventions.Add(
+				// 	ConventionBuilder.Class.Always(x => x.Table(x.EntityType.Name))));
 
 		var sessionFactory = cfg.BuildSessionFactory();
 

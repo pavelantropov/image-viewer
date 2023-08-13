@@ -47,4 +47,9 @@ public class NHibernateRepository : INHibernateRepository
 	{
 		return Session.DeleteAsync(entity, cancellationToken);
 	}
+
+	public Task FlushAsync(CancellationToken cancellationToken = default)
+	{
+		return Session.FlushAsync(cancellationToken);
+	}
 }

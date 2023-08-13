@@ -5,6 +5,7 @@ public class Image
 	public virtual int Id { get; set; }
 	public virtual string Name { get; set; }
 	public virtual string Description { get; set; }
+	public virtual string FileName { get; set; }
 	public virtual string Path { get; set; }
 	public virtual DateTime? UploadDate { get; set; }
 

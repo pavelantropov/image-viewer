@@ -7,10 +7,12 @@ public class UserMap : ClassMap<User>
 {
 	public UserMap()
 	{
-		Id(x => x.Id);
+		Table("Users");
+
+		Id(x => x.Id).GeneratedBy.Identity();
 
 		Map(x => x.Name);
 
-		HasMany(x => x.Images).KeyColumn("uploaded_by").Cascade.AllDeleteOrphan();
+		HasMany(x => x.Images).KeyColumn("UploadedBy_id").Cascade.AllDeleteOrphan();
 	}
 }

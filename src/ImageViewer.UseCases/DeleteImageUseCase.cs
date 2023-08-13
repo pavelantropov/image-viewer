@@ -7,10 +7,10 @@ namespace ImageViewer.UseCases;
 
 public class DeleteImageUseCase : IDeleteImageUseCase
 {
-	private readonly IAsyncRepository _repository;
+	private readonly INHibernateRepository _repository;
 	private readonly IMapper _mapper;
 
-	public DeleteImageUseCase(IAsyncRepository repository,
+	public DeleteImageUseCase(INHibernateRepository repository,
 		IMapper mapper)
 	{
 		_repository = repository;
@@ -20,5 +20,6 @@ public class DeleteImageUseCase : IDeleteImageUseCase
 	public async Task Invoke(int id, CancellationToken cancellationToken = default)
 	{
 		await _repository.DeleteAsync<Image>(id, cancellationToken);
+		await _repository.FlushAsync(cancellationToken);
 	}
 }
