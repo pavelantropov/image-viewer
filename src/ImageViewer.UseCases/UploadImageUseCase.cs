@@ -54,8 +54,11 @@ public class UploadImageUseCase : IUploadImageUseCase
 			//Logger.Error
 		}
 
-		await _repository.FlushAsync(cancellationToken);
+		//await _repository.FlushAsync(cancellationToken);
 
-		return _mapper.Map<ImageDto>(image);
+		var imageDto = _mapper.Map<ImageDto>(image);
+		imageDto.Content = await _filesHelper.ReadFileBytesAsync(imagePath, cancellationToken);
+
+		return imageDto;
 	}
 }
