@@ -9,12 +9,11 @@ public class FluentValidationProvider : IValidationProvider
 {
 	private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-	private readonly IValidatorFactory _validatorFactory;
+	private readonly IServiceProvider _serviceProvider;
 
-	public FluentValidationProvider(
-		IValidatorFactory validatorFactory)
+	public FluentValidationProvider(IServiceProvider serviceProvider)
 	{
-		_validatorFactory = validatorFactory;
+		_serviceProvider = serviceProvider;
 	}
 
 	public async Task<IEnumerable<ValidationResult>> ValidateAsync<T>([NotNull] T item,

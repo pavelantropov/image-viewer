@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace ImageViewer.UseCases.ApiModels;
+namespace ImageViewer.Api.Model.ApiModels;
 
 public class UploadImageRequestModel
 {

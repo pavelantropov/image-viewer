@@ -1,7 +1,7 @@
 using System.Reflection;
+using ImageViewer.Api.Model.ApiModels;
 using ImageViewer.Api.ServiceCollectionExtensions;
 using ImageViewer.AutoMapper.MappingProfiles;
-using ImageViewer.UseCases.ApiModels;
 using ImageViewer.UseCases.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;

@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
+using ImageViewer.Api.Model.ApiModels;
 using ImageViewer.DataAccess.Repository;
 using ImageViewer.Domain.Entities;
 using ImageViewer.Infrastructure;
 using ImageViewer.Infrastructure.Helpers;
-using ImageViewer.UseCases.ApiModels;
 using ImageViewer.UseCases.Dto;
 using ImageViewer.UseCases.Interfaces;
 

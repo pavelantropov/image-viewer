@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ImageViewer.Api.Model\ImageViewer.Api.Model.csproj" />
     <ProjectReference Include="..\ImageViewer.DataAccess\ImageViewer.DataAccess.csproj" />
     <ProjectReference Include="..\ImageViewer.Domain\ImageViewer.Domain.csproj" />
     <ProjectReference Include="..\ImageViewer.Infrastructure\ImageViewer.Infrastructure.csproj" />
