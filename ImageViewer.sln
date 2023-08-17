@@ -21,7 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageViewer.Validation", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageViewer.DataAccess", "src\ImageViewer.DataAccess\ImageViewer.DataAccess.csproj", "{340C27CD-AE31-4F28-AF08-0F5562A5AB20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageViewer.AutoMapper", "src\ImageViewer.Automapper\ImageViewer.AutoMapper.csproj", "{A5013981-991C-43D7-B5C0-F8C5F406D320}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageViewer.AutoMapper", "src\ImageViewer.AutoMapper\ImageViewer.AutoMapper.csproj", "{A5013981-991C-43D7-B5C0-F8C5F406D320}"
+EndProject
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
