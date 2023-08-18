@@ -1,6 +1,4 @@
-﻿using ImageViewer.Domain.Entities;
-
-namespace ImageViewer.UseCases.Dto;
+﻿namespace ImageViewer.UseCases.Dto;
 
 public class ImagesDto
 {

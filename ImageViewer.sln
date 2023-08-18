@@ -21,8 +21,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageViewer.Validation", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageViewer.DataAccess", "src\ImageViewer.DataAccess\ImageViewer.DataAccess.csproj", "{340C27CD-AE31-4F28-AF08-0F5562A5AB20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageViewer.AutoMapper", "src\ImageViewer.AutoMapper\ImageViewer.AutoMapper.csproj", "{A5013981-991C-43D7-B5C0-F8C5F406D320}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageViewer.AutoMapper", "src\ImageViewer.AutoMapper\ImageViewer.AutoMapper.csproj", "{A5013981-991C-43D7-B5C0-F8C5F406D320}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageViewer.Api.Model", "src\ImageViewer.Api.Model\ImageViewer.Api.Model.csproj", "{5CCCC62D-2862-4D59-8175-13895B1901E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageViewer.Tests.Validation", "src\Tests\ImageViewer.Tests.Validation\ImageViewer.Tests.Validation.csproj", "{EE1F7E32-4C72-496C-837C-8C332E0F0416}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,6 +69,14 @@ Global
 		{A5013981-991C-43D7-B5C0-F8C5F406D320}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5013981-991C-43D7-B5C0-F8C5F406D320}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5013981-991C-43D7-B5C0-F8C5F406D320}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CCCC62D-2862-4D59-8175-13895B1901E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CCCC62D-2862-4D59-8175-13895B1901E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CCCC62D-2862-4D59-8175-13895B1901E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CCCC62D-2862-4D59-8175-13895B1901E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE1F7E32-4C72-496C-837C-8C332E0F0416}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE1F7E32-4C72-496C-837C-8C332E0F0416}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE1F7E32-4C72-496C-837C-8C332E0F0416}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE1F7E32-4C72-496C-837C-8C332E0F0416}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +84,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{0F39A49E-CEB9-4E49-981B-687F405FF7AD} = {7DE34590-B52E-42C9-8B0D-685C0271AAF0}
 		{5CAB7FCF-F958-4E9C-A5D5-172B77795046} = {7DE34590-B52E-42C9-8B0D-685C0271AAF0}
+		{EE1F7E32-4C72-496C-837C-8C332E0F0416} = {7DE34590-B52E-42C9-8B0D-685C0271AAF0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B4B85EF0-36CB-47BB-9F1E-E0B80097E275}

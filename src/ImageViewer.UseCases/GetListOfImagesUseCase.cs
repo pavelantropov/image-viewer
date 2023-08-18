@@ -12,14 +12,17 @@ public class GetListOfImagesUseCase : IGetListOfImagesUseCase
 	private readonly IAsyncRepository _repository;
 	private readonly IMapper _mapper;
 	private readonly IFilesHelper _filesHelper;
+	private readonly IValidationHelper _validationHelper;
 
 	public GetListOfImagesUseCase(IAsyncRepository repository,
 		IMapper mapper,
-		IFilesHelper filesHelper)
+		IFilesHelper filesHelper,
+		IValidationHelper validationHelper)
 	{
 		_repository = repository;
 		_mapper = mapper;
 		_filesHelper = filesHelper;
+		_validationHelper = validationHelper;
 	}
 
 	public async Task<ImagesDto> Invoke(string filter, CancellationToken cancellationToken = default)
@@ -33,6 +36,7 @@ public class GetListOfImagesUseCase : IGetListOfImagesUseCase
 
 		foreach (var image in images)
 		{
+			await _validationHelper.ValidateAsync(image);
 			var dto = _mapper.Map<ImageDto>(image);
 			dto.Content = await _filesHelper.ReadFileBytesAsync(image.Path, cancellationToken);
 

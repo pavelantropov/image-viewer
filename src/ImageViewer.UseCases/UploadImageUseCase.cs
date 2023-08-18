@@ -14,14 +14,17 @@ public class UploadImageUseCase : IUploadImageUseCase
 	private readonly INHibernateRepository _repository;
 	private readonly IMapper _mapper;
 	private readonly IFilesHelper _filesHelper;
+	private readonly IValidationHelper _validationHelper;
 
 	public UploadImageUseCase(INHibernateRepository repository,
 		IMapper mapper,
-		IFilesHelper filesHelper)
+		IFilesHelper filesHelper,
+		IValidationHelper validationHelper)
 	{
 		_repository = repository;
 		_mapper = mapper;
 		_filesHelper = filesHelper;
+		_validationHelper = validationHelper;
 	}
 
 	public async Task<ImageDto> Invoke(UploadImageRequestModel request, CancellationToken cancellationToken)
@@ -41,6 +44,7 @@ public class UploadImageUseCase : IUploadImageUseCase
 		image.UploadDate = DateTime.Now;
 		image.UploadedBy = user;
 
+		await _validationHelper.ValidateAsync(image);
 		image = await _repository.SaveAsync<Image>(image, cancellationToken);
 
 		try
