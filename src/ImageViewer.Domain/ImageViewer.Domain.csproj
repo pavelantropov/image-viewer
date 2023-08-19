@@ -14,4 +14,8 @@
     <PackageReference Include="NHibernate" Version="5.4.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ImageViewer.Infrastructure\ImageViewer.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

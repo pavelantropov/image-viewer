@@ -11,12 +11,13 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["src/ImageViewer.Api/ImageViewer.Api.csproj", "src/ImageViewer.Api/"]
-COPY ["src/ImageViewer.AutoMapper/ImageViewer.AutoMapper.csproj", "src/ImageViewer.AutoMapper/"]
-COPY ["src/ImageViewer.Domain/ImageViewer.Domain.csproj", "src/ImageViewer.Domain/"]
-COPY ["src/ImageViewer.UseCases/ImageViewer.UseCases.csproj", "src/ImageViewer.UseCases/"]
 COPY ["src/ImageViewer.Api.Model/ImageViewer.Api.Model.csproj", "src/ImageViewer.Api.Model/"]
+COPY ["src/ImageViewer.AutoMapper/ImageViewer.AutoMapper.csproj", "src/ImageViewer.AutoMapper/"]
 COPY ["src/ImageViewer.DataAccess/ImageViewer.DataAccess.csproj", "src/ImageViewer.DataAccess/"]
+COPY ["src/ImageViewer.Domain/ImageViewer.Domain.csproj", "src/ImageViewer.Domain/"]
 COPY ["src/ImageViewer.Infrastructure/ImageViewer.Infrastructure.csproj", "src/ImageViewer.Infrastructure/"]
+COPY ["src/ImageViewer.UseCases/ImageViewer.UseCases.csproj", "src/ImageViewer.UseCases/"]
+COPY ["src/ImageViewer.Validation/ImageViewer.Validation.csproj", "src/ImageViewer.Validation/"]
 RUN dotnet restore "src/ImageViewer.Api/ImageViewer.Api.csproj"
 COPY . .
 WORKDIR "/src/src/ImageViewer.Api"

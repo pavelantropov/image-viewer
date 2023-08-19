@@ -1,11 +1,14 @@
 using System.Reflection;
+using System.Text;
 using FluentValidation;
 using ImageViewer.Api.Model.ApiModels;
 using ImageViewer.Api.ServiceCollectionExtensions;
 using ImageViewer.AutoMapper.MappingProfiles;
 using ImageViewer.UseCases.Interfaces;
 using ImageViewer.Validation.Validators;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +29,30 @@ builder.Services.AddCors(options =>
 				.AllowAnyMethod()
 				.AllowAnyHeader();
 		});
+});
+
+builder.Services.AddAuthentication(options =>
+{
+	options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+	options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+	.AddJwtBearer(options =>
+	{
+		options.TokenValidationParameters = new TokenValidationParameters
+		{
+			ValidateIssuer = true,
+			ValidateAudience = true,
+			ValidateLifetime = true,
+			ValidateIssuerSigningKey = true,
+			ValidIssuer = builder.Configuration["Jwt:Issuer"],
+			ValidAudience = builder.Configuration["Jwt:Issuer"],
+			IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
+		};
+	});
+builder.Services.AddAuthorization(options =>
+{
+	options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
+	options.AddPolicy("RequireUserRole", policy => policy.RequireRole("User"));
 });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -61,6 +88,9 @@ if (app.Environment.IsDevelopment())
 app.UseCors();
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapGet(
 	"api/images",
 	async ([FromQuery] string filter, IGetListOfImagesUseCase useCase, CancellationToken cancellationToken) =>
@@ -91,7 +121,7 @@ app.MapPost(
 	// async ([FromBody] UploadImageRequestModel request, IUploadImageUseCase useCase, CancellationToken cancellationToken) =>
 	async (HttpContext context, IUploadImageUseCase useCase, CancellationToken cancellationToken) =>
 	{
-		var form = await context.Request.ReadFormAsync();
+		var form = await context.Request.ReadFormAsync(cancellationToken);
 
 		var request = new UploadImageRequestModel
 		{
@@ -102,7 +132,7 @@ app.MapPost(
 
 		if (request.Content == null || request.Content.Length == 0)
 		{
-			return Results.BadRequest();
+			return Results.BadRequest("Please attach an image.");
 		}
 
 		return Results.Ok(await useCase.Invoke(request, cancellationToken));

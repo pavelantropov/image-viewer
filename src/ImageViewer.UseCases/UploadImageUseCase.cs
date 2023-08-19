@@ -2,66 +2,56 @@
 using ImageViewer.Api.Model.ApiModels;
 using ImageViewer.DataAccess.Repository;
 using ImageViewer.Domain.Entities;
+using ImageViewer.Domain.Factories;
 using ImageViewer.Infrastructure;
 using ImageViewer.Infrastructure.Helpers;
 using ImageViewer.UseCases.Dto;
 using ImageViewer.UseCases.Interfaces;
+using NLog;
 
 namespace ImageViewer.UseCases;
 
 public class UploadImageUseCase : IUploadImageUseCase
 {
+	private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
 	private readonly INHibernateRepository _repository;
 	private readonly IMapper _mapper;
 	private readonly IFilesHelper _filesHelper;
-	private readonly IValidationHelper _validationHelper;
+	private readonly IImageFactory _imageFactory;
 
 	public UploadImageUseCase(INHibernateRepository repository,
 		IMapper mapper,
 		IFilesHelper filesHelper,
-		IValidationHelper validationHelper)
+		IImageFactory imageFactory)
 	{
 		_repository = repository;
 		_mapper = mapper;
 		_filesHelper = filesHelper;
-		_validationHelper = validationHelper;
+		_imageFactory = imageFactory;
 	}
 
 	public async Task<ImageDto> Invoke(UploadImageRequestModel request, CancellationToken cancellationToken)
 	{
-		var uniqueFileName = Guid.NewGuid() + Path.GetExtension(request.Content.FileName);
-		var imagePath = Path.Combine(FileConstants.ImagesRootPath, uniqueFileName);
-
-		var image = new Image
-		{
-			Name = request.Name,
-			Description = request.Description,
-			FileName = uniqueFileName,
-			Path = imagePath,
-		};
-
+		// TODO for now assigning all images to the only user in the DB
 		var user = await _repository.GetAsync<User>(1, cancellationToken);
-		image.UploadDate = DateTime.Now;
-		image.UploadedBy = user;
+		var extension = Path.GetExtension(request.Content.FileName);
 
-		await _validationHelper.ValidateAsync(image);
-		image = await _repository.SaveAsync<Image>(image, cancellationToken);
+		var image = await _imageFactory.CreateAsync(request.Name, request.Description, user, extension);
 
 		try
 		{
-			await _filesHelper.CreateFileAsync(imagePath, request.Content, cancellationToken);
+			await _filesHelper.CreateFileAsync(image.Path, request.Content, cancellationToken);
+			image = await _repository.SaveAsync<Image>(image, cancellationToken);
 		}
 		catch (Exception ex)
 		{
-			//тут откатить, если не создался файл
-
-			//Logger.Error
+			Logger.Error(ex);
+			throw;
 		}
 
-		//await _repository.FlushAsync(cancellationToken);
-
 		var imageDto = _mapper.Map<ImageDto>(image);
-		imageDto.Content = await _filesHelper.ReadFileBytesAsync(imagePath, cancellationToken);
+		imageDto.Content = await _filesHelper.ReadFileBytesAsync(image.Path, cancellationToken);
 
 		return imageDto;
 	}

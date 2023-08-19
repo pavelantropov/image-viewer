@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ImageViewer.Automapper\ImageViewer.AutoMapper.csproj" />
+    <ProjectReference Include="..\ImageViewer.AutoMapper\ImageViewer.AutoMapper.csproj" />
     <ProjectReference Include="..\ImageViewer.DataAccess\ImageViewer.DataAccess.csproj" />
     <ProjectReference Include="..\ImageViewer.Domain\ImageViewer.Domain.csproj" />
     <ProjectReference Include="..\ImageViewer.Infrastructure\ImageViewer.Infrastructure.csproj" />
