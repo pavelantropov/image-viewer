@@ -2,5 +2,5 @@
 
 public interface IValidationHelper
 {
-	Task ValidateAsync<T>(T value);
+	Task ValidateAsync<T>(T value, CancellationToken cancellationToken = default);
 }

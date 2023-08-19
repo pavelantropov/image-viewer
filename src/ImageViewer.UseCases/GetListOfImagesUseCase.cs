@@ -32,21 +32,21 @@ public class GetListOfImagesUseCase : IGetListOfImagesUseCase
 		// TODO pass filter
 		var images = await _repository.GetAllAsync<Image>(cancellationToken);
 
-		var dtos = new List<ImageDto>();
+		var imageDtoList = new List<ImageDto>();
 
 		foreach (var image in images)
 		{
-			await _validationHelper.ValidateAsync(image);
+			await _validationHelper.ValidateAsync(image, cancellationToken);
 			var dto = _mapper.Map<ImageDto>(image);
 			dto.Content = await _filesHelper.ReadFileBytesAsync(image.Path, cancellationToken);
 
-			dtos.Add(dto);
+			imageDtoList.Add(dto);
 		}
 
 		var imagesDto = new ImagesDto
 		{
-			Images = dtos,
-			ImagesCount = dtos.Count
+			Images = imageDtoList,
+			ImagesCount = imageDtoList.Count
 		};
 
 		return imagesDto;

@@ -31,13 +31,13 @@ public class UploadImageUseCase : IUploadImageUseCase
 		_imageFactory = imageFactory;
 	}
 
-	public async Task<ImageDto> Invoke(UploadImageRequestModel request, CancellationToken cancellationToken)
+	public async Task<ImageDto> Invoke(UploadImageRequestModel request, CancellationToken cancellationToken = default)
 	{
 		// TODO for now assigning all images to the only user in the DB
 		var user = await _repository.GetAsync<User>(1, cancellationToken);
 		var extension = Path.GetExtension(request.Content.FileName);
 
-		var image = await _imageFactory.CreateAsync(request.Name, request.Description, user, extension);
+		var image = await _imageFactory.CreateAsync(request.Name, request.Description, user, extension, cancellationToken);
 
 		try
 		{

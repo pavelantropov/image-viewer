@@ -14,7 +14,7 @@ public class ImageFactory : IImageFactory
 		_validationHelper = validationHelper;
 	}
 
-	public async Task<Image> CreateAsync(string name, string description, User uploadedBy, string fileExtension = ".jpeg")
+	public async Task<Image> CreateAsync(string name, string description, User uploadedBy, string fileExtension = ".jpeg", CancellationToken cancellationToken = default)
 	{
 		var whiteSpacesRegex = new Regex(@"\s+", RegexOptions.Compiled);
 
@@ -31,7 +31,7 @@ public class ImageFactory : IImageFactory
 			UploadedBy = uploadedBy,
 		};
 
-		await _validationHelper.ValidateAsync(image);
+		await _validationHelper.ValidateAsync(image, cancellationToken);
 
 		return image;
 	}

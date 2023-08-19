@@ -12,7 +12,7 @@ public class ValidationHelper : IValidationHelper
 		_serviceProvider = serviceProvider;
 	}
 
-	public async Task ValidateAsync<T>(T value)
+	public async Task ValidateAsync<T>(T value, CancellationToken cancellationToken = default)
 	{
 		var type = typeof(IValidator<>).MakeGenericType(typeof(T));
 		var validator = (IValidator)_serviceProvider.GetRequiredService(type);
@@ -20,7 +20,7 @@ public class ValidationHelper : IValidationHelper
 		var validationContextType = typeof(ValidationContext<>).MakeGenericType(value.GetType());
 		var validationContext = (IValidationContext)Activator.CreateInstance(validationContextType, value);
 
-		var result = await validator.ValidateAsync(validationContext);
+		var result = await validator.ValidateAsync(validationContext, cancellationToken);
 
 		if (result.Errors.Any()) { throw new InvalidOperationException(); }
 	}

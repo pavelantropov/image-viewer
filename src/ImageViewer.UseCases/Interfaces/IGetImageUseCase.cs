@@ -4,8 +4,8 @@ namespace ImageViewer.UseCases.Interfaces;
 
 public interface IGetImageUseCase
 {
-	Task<ImageDto?> Invoke(
+	Task<ImageDto> Invoke(
 		int id,
-		CancellationToken cancellationToken
+		CancellationToken cancellationToken = default
 	);
 }

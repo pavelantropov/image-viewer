@@ -25,10 +25,12 @@ public class GetImageUseCase : IGetImageUseCase
 		_validationHelper = validationHelper;
 	}
 
-	public async Task<ImageDto?> Invoke(int id, CancellationToken cancellationToken = default)
+	public async Task<ImageDto> Invoke(int id, CancellationToken cancellationToken = default)
 	{
 		var image = await _repository.GetAsync<Image>(id, cancellationToken);
-		await _validationHelper.ValidateAsync(image);
+		if (image == null) { throw new FileNotFoundException(nameof(image)); }
+
+		await _validationHelper.ValidateAsync(image, cancellationToken);
 
 		var imageDto = _mapper.Map<ImageDto>(image);
 		imageDto.Content = await _filesHelper.ReadFileBytesAsync(image.Path, cancellationToken);

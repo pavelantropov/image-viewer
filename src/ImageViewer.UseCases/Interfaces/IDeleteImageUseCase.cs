@@ -4,6 +4,6 @@ public interface IDeleteImageUseCase
 {
 	Task Invoke(
 		int id,
-		CancellationToken cancellationToken
+		CancellationToken cancellationToken = default
 	);
 }

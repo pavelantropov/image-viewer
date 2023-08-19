@@ -7,6 +7,6 @@ public interface IUploadImageUseCase
 {
 	Task<ImageDto> Invoke(
 		UploadImageRequestModel request,
-		CancellationToken cancellationToken
+		CancellationToken cancellationToken = default
 	);
 }

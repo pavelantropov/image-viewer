@@ -7,6 +7,7 @@ public class ImageValidator : AbstractValidator<Image>
 {
 	public ImageValidator()
 	{
+		RuleFor(x => x).NotNull();
 		RuleFor(x => x.Name).NotNull().NotEmpty();
 		RuleFor(x => x.Path).NotNull().NotEmpty();
 		RuleFor(x => x.UploadDate).NotNull().LessThan(DateTime.Now);
