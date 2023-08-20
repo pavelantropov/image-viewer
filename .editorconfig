@@ -12,6 +12,11 @@ indent_size = 2
 [*.cs]
 csharp_style_namespace_declarations=file_scoped:suggestion
 
+# Yml files
+[*.yml]
+indent_style = space
+indent_size = 2
+
 #### Core EditorConfig Options ####
 
 # Indentation and spacing

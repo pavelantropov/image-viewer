@@ -1,0 +1,67 @@
+version: '3'
+services:
+  ui:
+    build:
+      context: ../ui #Вместо ../ui подставить относительный путь к папке с репозиторием image-viewer-ui
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - "REACT_APP_API_URL=http://localhost:5000/api"
+    depends_on:
+      - api
+    networks:
+      - image-viewer
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:80"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: "Server=database;Initial Catalog=ImageViewerDb;User Id=sa;Password=SA_Passw0rd;Integrated Security=false;Trusted_Connection=False;TrustServerCertificate=true;Connection Timeout=120;"
+    depends_on:
+      database_cmd:
+        condition: service_completed_successfully
+    networks:
+      - image-viewer
+
+  database:
+    image: mcr.microsoft.com/mssql/server:latest
+    command: /opt/mssql/bin/sqlservr
+    environment:
+      SA_PASSWORD: "SA_Passw0rd"
+      ACCEPT_EULA: Y
+      MSSQL_SA_PASSWORD: "SA_Passw0rd"
+      MSSQL_PID: Developer
+    stdin_open: true
+    ports:
+      - "1433:1433"
+    volumes:
+      - ./db:/opt/mssql_scripts
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "SA_Passw0rd" -Q "SELECT 1" -b -o /dev/null
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+    networks:
+      - image-viewer
+
+  database_cmd:
+    image: mcr.microsoft.com/mssql-tools:latest
+    command: bash /opt/mssql_scripts/run-init.sh
+    stdin_open: true
+    volumes:
+      - ./db:/opt/mssql_scripts
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - image-viewer
+
+networks:
+  image-viewer:
+    driver: bridge

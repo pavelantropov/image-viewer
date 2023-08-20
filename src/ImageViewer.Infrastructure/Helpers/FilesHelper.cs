@@ -4,6 +4,10 @@ namespace ImageViewer.Infrastructure.Helpers;
 
 public class FilesHelper : IFilesHelper
 {
+	public FilesHelper()
+	{
+	}
+
 	public async Task<byte[]> ReadFileBytesAsync(string filePath, CancellationToken cancellationToken = default)
 	{
 		return File.Exists(filePath)

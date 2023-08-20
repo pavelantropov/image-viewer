@@ -1,17 +1,20 @@
 ﻿using System.Text.RegularExpressions;
 using ImageViewer.Domain.Entities;
-using ImageViewer.Infrastructure;
 using ImageViewer.Infrastructure.Helpers;
+using Microsoft.Extensions.Configuration;
 
 namespace ImageViewer.Domain.Factories;
 
 public class ImageFactory : IImageFactory
 {
 	private readonly IValidationHelper _validationHelper;
+	private readonly IConfiguration _configuration;
 
-	public ImageFactory(IValidationHelper validationHelper)
+	public ImageFactory(IValidationHelper validationHelper,
+		IConfiguration configuration)
 	{
 		_validationHelper = validationHelper;
+		_configuration = configuration;
 	}
 
 	public async Task<Image> CreateAsync(string name, string description, User uploadedBy, string fileExtension = ".jpeg", CancellationToken cancellationToken = default)
@@ -19,7 +22,7 @@ public class ImageFactory : IImageFactory
 		var whiteSpacesRegex = new Regex(@"\s+", RegexOptions.Compiled);
 
 		var uniqueFileName = $"{whiteSpacesRegex.Replace(name, string.Empty)}{Guid.NewGuid()}{fileExtension}";
-		var imagePath = Path.Combine(FileConstants.ImagesRootPath, uniqueFileName);
+		var imagePath = Path.Combine(_configuration.GetSection("ImagesRootPath").Value, uniqueFileName);
 
 		var image = new Image
 		{

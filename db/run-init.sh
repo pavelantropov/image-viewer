@@ -1,0 +1,1 @@
+/opt/mssql-tools/bin/sqlcmd -S database -U SA -P SA_Passw0rd -d master -i /opt/mssql_scripts/init.sql
