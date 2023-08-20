@@ -6,8 +6,4 @@ public class User : Entity<int>
 	public virtual string Name { get; set; }
 
 	public virtual IList<Image> Images { get; set; }
-
-	protected User(int id) : base(id)
-	{
-	}
 }

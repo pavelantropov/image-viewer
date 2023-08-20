@@ -9,8 +9,4 @@ public class Image : Entity<int>
 	public virtual DateTime? UploadDate { get; set; }
 
 	public virtual User UploadedBy { get; set; }
-
-	protected Image(int id) : base(id)
-	{
-	}
 }

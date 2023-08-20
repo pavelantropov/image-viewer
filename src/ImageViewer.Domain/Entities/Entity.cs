@@ -4,11 +4,6 @@ public class Entity<TId> : IEquatable<Entity<TId>>
 {
 	public virtual TId Id { get; set; }
 
-	protected Entity(TId id)
-	{
-		Id = IsValid(id) ? id : throw new ArgumentException("Identifier type is not supported", nameof(id));
-	}
-
 	public bool Equals(Entity<TId> other)
 	{
 		if (ReferenceEquals(null, other))
